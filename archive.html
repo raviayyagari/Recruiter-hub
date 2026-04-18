@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+/* ---------- ROW ---------- */
+.candidate-row{
+    background:white;
+    border-radius:12px;
+    padding:14px 20px;
+    margin-bottom:12px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.06);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+}
+.row-left{display:flex;flex-direction:column;}
+.name{font-size:17px;font-weight:700;}
+.meta{font-size:13px;color:#555;}
+
+.row-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.pill{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+.blue{background:#e0edff;color:#1d4ed8;}
+.green{background:#dcfce7;color:#15803d;}
+.gray{background:#f3f4f6;color:#374151;}
+.archived{background:#fee2e2;color:#991b1b;}
+
+/* ---------- OVERLAY ---------- */
+.archive-overlay{
+    position:fixed;
+    top:0;
+    right:-45%;
+    width:42%;
+    height:100%;
+    background:white;
+    box-shadow:-5px 0 20px rgba(0,0,0,0.15);
+    padding:26px;
+    overflow:auto;
+    transition:0.35s ease;
+    z-index:9999;
+}
+.archive-overlay.active{ right:0; }
+
+.overlay-close{
+    cursor:pointer;
+    font-weight:bold;
+    font-size:20px;
+}
+</style>
+
+<h2>Archived Applications</h2>
+
+<!-- Dummy Row 1 -->
+<div class="candidate-row" onclick="openArchiveOverlay()">
+    <div class="row-left">
+        <div class="name">Chirayu Agrawal</div>
+        <div class="meta">Business Analyst | APP-8891</div>
+    </div>
+    <div class="row-right">
+        <div class="pill blue">38% Skill</div>
+        <div class="pill green">45% Health</div>
+        <div class="pill gray">6.2 yrs</div>
+        <div class="pill archived">Archived</div>
+    </div>
+</div>
+
+<!-- Dummy Row 2 -->
+<div class="candidate-row" onclick="openArchiveOverlay()">
+    <div class="row-left">
+        <div class="name">Amrutha</div>
+        <div class="meta">Data Engineer | APP-9023</div>
+    </div>
+    <div class="row-right">
+        <div class="pill blue">42% Skill</div>
+        <div class="pill green">54% Health</div>
+        <div class="pill gray">4.1 yrs</div>
+        <div class="pill archived">Archived</div>
+    </div>
+</div>
+
+<!-- Overlay Panel -->
+<div class="archive-overlay" id="archiveOverlay">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+        <h2>Archived Candidate</h2>
+        <span class="overlay-close" onclick="closeArchiveOverlay()">✕</span>
+    </div>
+
+    <p>Application ID: APP-8891</p>
+
+    <div style="margin-top:20px;">
+        <b>Reason for Archive:</b>
+        <p>Low data confidence and duplicate identity detected across sources.</p>
+    </div>
+
+    <div style="margin-top:20px;">
+        <b>Skill Match:</b> 38%
+    </div>
+
+    <div style="margin-top:10px;">
+        <b>Data Health:</b> 45%
+    </div>
+
+    <div style="margin-top:20px;">
+        <b>Experience:</b> 6.2 years
+    </div>
+
+    <div style="margin-top:20px;">
+        <b>Resume Preview:</b>
+        <p>This candidate was archived due to unresolved conflicts in identity data...</p>
+    </div>
+
+</div>
+
+<script>
+function openArchiveOverlay(){
+    document.getElementById("archiveOverlay").classList.add("active");
+}
+function closeArchiveOverlay(){
+    document.getElementById("archiveOverlay").classList.remove("active");
+}
+</script>
+
+{% endblock %}
