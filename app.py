@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, request
+import os
 
 app = Flask(__name__)
 
@@ -79,7 +80,6 @@ conflicts = [
             }
         ]
     },
-
     {
         "name": "A Ravichandra",
         "reason": "Phone & Name Conflict",
@@ -114,7 +114,7 @@ conflicts = [
     }
 ]
 
-# ---------------- DASHBOARD (NEW UI) ----------------
+# ---------------- DASHBOARD ----------------
 @app.route("/")
 def dashboard():
     return render_template("home.html",conflicts=conflicts,)
@@ -128,6 +128,7 @@ def candidates_page():
 @app.route("/review")
 def review():
     return render_template("review.html",conflicts=conflicts)
+
 # ---------------- Archive ----------------
 @app.route("/archive")
 def archive():
@@ -156,5 +157,7 @@ def confirm_merge():
 
     return redirect("/candidates")
 
+# ---------------- RENDER READY ----------------
 if __name__ == "__main__":
-    app.run(debug=True,host="0.0.0.0")
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
